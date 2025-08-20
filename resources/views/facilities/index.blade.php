@@ -41,7 +41,7 @@
         <td>{{ $facility->materials->pluck('name')->implode(', ') }}</td>
         <td>
             <a href="{{ route('facilities.show', $facility) }}">View</a>
-            <a href="{{ route('facilities.edit', $facility) }}">Edit</a>
+            <a href="{{ route('facilities.edit', $facility->id) }}">Edit</a>
             <form action="{{ route('facilities.destroy', $facility) }}" method="POST" style="display:inline">
                 @csrf @method('DELETE')
                 <button type="submit" onclick="return confirm('Delete?')">Delete</button>

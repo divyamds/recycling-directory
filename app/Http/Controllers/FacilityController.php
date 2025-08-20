@@ -86,40 +86,30 @@ class FacilityController extends Controller
         return view('facilities.show', compact('facility'));
     }
 
-    public function edit(Facility $facility)
-    {
-        $materials = Material::all();
-        $facility->load('materials');
-        return view('facilities.edit', compact('facility', 'materials'));
-    }
+ public function edit(Facility $facility)
+{
+    $materials = Material::all(); // to show checkboxes/dropdown
+    return view('facilities.edit', compact('facility', 'materials'));
+}
 
-    public function update(Request $request, Facility $facility)
-    {
-        $request->validate([
-            'business_name' => 'required|string|max:255',
-            'last_update_date' => 'required|date',
-            'street_address' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:20',
-            'materials' => 'array',
-        ]);
+public function update(Request $request, Facility $facility)
+{
+    $validated = $request->validate([
+        'business_name' => 'required|string|max:255',
+        'last_update_date' => 'required|date',
+        'street_address' => 'required|string|max:255',
+        'city' => 'required|string|max:255',
+        'state' => 'required|string|max:255',
+        'postal_code' => 'required|string|max:20',
+        'materials' => 'array|required'
+    ]);
 
-        $facility->update($request->only([
-            'business_name',
-            'last_update_date',
-            'street_address',
-            'city',
-            'state',
-            'postal_code',
-        ]));
+    $facility->update($validated);
+    $facility->materials()->sync($request->materials); // update pivot table
 
-        if ($request->has('materials')) {
-            $facility->materials()->sync($request->materials);
-        }
+    return redirect()->route('facilities.index')->with('success', 'Facility updated successfully!');
+}
 
-        return redirect()->route('facilities.index')->with('success', 'Facility updated successfully.');
-    }
 
     public function destroy(Facility $facility)
     {

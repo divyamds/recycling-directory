@@ -29,4 +29,7 @@ Route::middleware(['auth'])->group(function () {
     // Export filtered facilities as CSV
     Route::get('facilities-export', [FacilityController::class, 'exportCsv'])
         ->name('facilities.export');
+        Route::get('/facilities/{facility}/edit', [FacilityController::class, 'edit'])->name('facilities.edit');
+Route::put('/facilities/{facility}', [FacilityController::class, 'update'])->name('facilities.update');
+
 });
