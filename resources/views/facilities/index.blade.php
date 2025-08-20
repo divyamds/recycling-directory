@@ -29,7 +29,7 @@
 <table border="1">
     <tr>
         <th>Name</th>
-        <th><a href="?sort=last_update">Last Updated</a></th>
+        <th>Last Updated</th>
         <th>Materials</th>
         <th>Actions</th>
     </tr>
