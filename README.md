@@ -24,46 +24,6 @@ Materials accepted
 
 Google Maps embed based on address
 
-Export filtered results as CSV
-
-🗄️ Database Design
-Tables
-
-facilities
-
-id (PK)
-
-business_name (string)
-
-last_update_date (date)
-
-street_address (string)
-
-city (string)
-
-state (string)
-
-postal_code (string)
-
-materials
-
-id (PK)
-
-name (string)
-
-facility_material (pivot table – many-to-many relationship)
-
-facility_id (FK → facilities.id)
-
-material_id (FK → materials.id)
-
-Relationships
-
-Facility has many Material (many-to-many).
-
-Material belongs to many Facility.
-
-🔍 Search, Filter, Sort, Export
 
 Search:
 Implemented using where and orWhereHas in the FacilityController.
@@ -86,5 +46,3 @@ Uses whereHas on pivot relationship to return only facilities that accept the ch
 Sort by Date:
 Implemented with orderBy('last_update_date', 'desc').
 
-Export CSV:
-Added an export route to download currently filtered results as a CSV file using fputcsv.
